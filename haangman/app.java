@@ -41,7 +41,7 @@ public class App {
             String race;
 
             if (!"human".equals(tempRace) || !"drawf".equals(tempRace) || !"priest".equals(tempRace) || !"orc".equals(tempRace)) {
-                System.out.println( userName + "Only following races");
+                System.out.println( userName + "Only following races"); //säkerställer inputen till de möjliga valen.
             } else {
                 race = scanner.nextLine(); 
             }
@@ -67,18 +67,17 @@ public class App {
         boolean weArePlay = true;
         while (weArePlay) {
             
-            
-            char[] randomWordToGuess = guesses.get(random.nextInt(guesses.size())).toCharArray();
+            char[] randomWordToGuess = guesses.get(random.nextInt(guesses.size())).toCharArray(); //tar ett ord
             int amountOfGuesses = randomWordToGuess.length; //lägg in antalet gissningar
-            char[] playerGuess = new char[amountOfGuesses]; // _ _ _ _
+            char[] playerGuess = new char[amountOfGuesses]; 
 
-            for(int i = 0; i < playerGuess.length; i++) playerGuess[i] = '_'; 
+            for(int i = 0; i < playerGuess.length; i++) playerGuess[i] = '_';  // formen på ordet som gissas blir _ _ _ _
             
 
             boolean wordIsGuessed = false;
             int tries = 0;
 
-            while(!wordIsGuessed && tries != amountOfGuesses) {
+            while(!wordIsGuessed && tries != amountOfGuesses) { //medan ordet inte är gissat och antalet försök inte är förbrukade
                 System.out.println("Current guesses: ");
                 printArray(playerGuess);
                 System.out.printf("you have %d tries left. %n", amountOfGuesses - tries);
@@ -92,13 +91,13 @@ public class App {
                     for(int i = 0; i < randomWordToGuess.length; i++) {
                         if(randomWordToGuess[i] == input) playerGuess[i] = input;
                     }
-                    if(isTheWordGuessed(playerGuess)) {
+                    if(isTheWordGuessed(playerGuess)) { //vid vinst
                         wordIsGuessed = true;
                         System.out.println("Congratulations You won");
                     }
                 }
             }
-            if(!wordIsGuessed) System.out.println("You ran out of guesses!");
+            if(!wordIsGuessed) System.out.println("You ran out of guesses!"); // slut på gissningar
             System.out.println("Do you want to play another game of hangman? (yes/no)");
             String anotherGame = scanner.nextLine();
             if(anotherGame.equals("no")) weArePlay = false;
@@ -109,12 +108,12 @@ public class App {
 
 public static void printArray(char[] array) {
     for(int i = 0; i < playerGuess.length; i++) {
-        System.out.print(array[i]+ " ");
+        System.out.print(array[i]+ " "); //skriver ut arrayen
     }
         System.out.println();
 }
 
-public static boolean isTheWordGuessed(char[] array) {
+public static boolean isTheWordGuessed(char[] array) { //metod som kollar om input är rätt
     for(int i = 0; i < playerGuess.length; i++) {
         if (array[i] == '_') return false;
     }
@@ -124,9 +123,9 @@ public static boolean isTheWordGuessed(char[] array) {
 public static LinkedList<String> getWordList() {
     LinkedList<String> list = new LinkedList<String>();
     int counter = 0;
-    int maxWords = 1000;
-    Scanner sc = new Scanner("haangman\\wordlist.txt");
-    BufferedReader in = new BufferedReader(new InputStreamReader(sc.openStream()));
+    int maxWords = 1000; //begränsar till 1000 ord
+    Scanner sc = new Scanner("haangman\\wordlist.txt"); 
+    BufferedReader in = new BufferedReader(new InputStreamReader(sc.openStream())); //öppnar filen
 
     String inputLine;
     
@@ -134,7 +133,7 @@ public static LinkedList<String> getWordList() {
     while ((inputLine = in.readLine() != null)) {
         list.add(inputLine);
         counter++;
-        if (counter == maxWords) break;
+        if (counter == maxWords) break; //denna delen lägger in orden i list
     }
     in.close();
 
